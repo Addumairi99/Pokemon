@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { ChakraProvider } from "@chakra-ui/react";
+import PokemonCard from "./pages/PokemonCard";
+import PokemonDetail from "./pages/PokemonDetail";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import MyPokemon from "./pages/MyPokemonList";
+import { useSelector, useDispatch } from "react-redux";
 
 function App() {
+  // Global state
+  const global = useSelector((state) => {
+    return state.pokemon;
+  });
+
+  const dispatch = useDispatch();
+  console.log("Global", global);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<PokemonCard />}></Route>
+          <Route path="/detail/:id" element={<PokemonDetail />}></Route>
+          <Route path="/my-pokemon" element={<MyPokemon />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </ChakraProvider>
   );
 }
 
