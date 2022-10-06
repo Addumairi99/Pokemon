@@ -4,7 +4,7 @@ import PokemonDetail from "./pages/PokemonDetail";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import MyPokemon from "./pages/MyPokemonList";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function App() {
   // Global state
@@ -12,7 +12,6 @@ function App() {
     return state.pokemon;
   });
 
-  const dispatch = useDispatch();
   console.log("Global", global);
   return (
     <ChakraProvider>

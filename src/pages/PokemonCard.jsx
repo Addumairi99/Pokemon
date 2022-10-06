@@ -19,12 +19,15 @@ function PokemonCard() {
 
   let navigate = useNavigate();
 
-  const pokeFun = async () => {
-    const res = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon-species/?offset=0&limit=20`
-    );
-    getPokemon(res.data.results);
-  };
+  useEffect(() => {
+    const pokeFun = async () => {
+      const res = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon-species/?offset=0&limit=20`
+      );
+      getPokemon(res.data.results);
+    };
+    pokeFun();
+  }, []);
 
   const getPokemon = async (res) => {
     res.map(async (item) => {
@@ -36,10 +39,6 @@ function PokemonCard() {
       });
     });
   };
-
-  useEffect(() => {
-    pokeFun();
-  }, []);
 
   const formatPokemonId = (id) => {
     if (id < 10) return `#00${id}`;

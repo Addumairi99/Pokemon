@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { MdOutlineCatchingPokemon, MdCatchingPokemon } from "react-icons/md";
+import { MdCatchingPokemon } from "react-icons/md";
 
 import {
   Box,
@@ -17,7 +17,6 @@ import axios from "axios";
 
 function MyPokemon() {
   const [listPokemon, setListPokemon] = useState([]);
-  const [init, setInit] = useState(listPokemon.length);
 
   const formatPokemonId = (id) => {
     if (id < 10) return `#00${id}`;
@@ -30,8 +29,6 @@ function MyPokemon() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setInit(pokemon);
-
     pokemon.map(async (item) => {
       const result = await axios.get(item.url);
       setListPokemon((state) => {
@@ -40,7 +37,7 @@ function MyPokemon() {
         return state;
       });
     });
-  }, []);
+  }, [pokemon]);
 
   const onButtonRealese = (id) => {
     dispatch({ type: "REMOVE_FAVORITE", payload: id });
@@ -102,7 +99,7 @@ function MyPokemon() {
               </Heading>
 
               <Button
-                onClick={()=>onButtonRealese(val.name)}
+                onClick={() => onButtonRealese(val.name)}
                 w={"full"}
                 mt={8}
                 bg={"blue.800"}

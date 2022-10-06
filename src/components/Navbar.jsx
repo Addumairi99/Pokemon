@@ -13,7 +13,7 @@ import { GiSchoolBag } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen } = useDisclosure();
   let navigate = useNavigate();
 
   return (

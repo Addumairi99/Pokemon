@@ -30,23 +30,23 @@ export default function PokemonDetail() {
   const params = useParams();
   const dispatch = useDispatch();
   const toast = useToast();
-
-  const pokeFun = async () => {
-    const res = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon-species/${params.id}/`
-    );
-
-    setPokemon(res.data);
-    setEggGroup(res.data.egg_groups);
-    setGrowrate(res.data.growth_rate);
-    setHabitat(res.data.habitat);
-    setText(res.data.flavor_text_entries[0].flavor_text);
-    setShape(res.data.shape);
-  };
+  const id = params.id;
 
   useEffect(() => {
+    const pokeFun = async () => {
+      const res = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon-species/${id}/`
+      );
+
+      setPokemon(res.data);
+      setEggGroup(res.data.egg_groups);
+      setGrowrate(res.data.growth_rate);
+      setHabitat(res.data.habitat);
+      setText(res.data.flavor_text_entries[0].flavor_text);
+      setShape(res.data.shape);
+    };
     pokeFun();
-  }, []);
+  }, [id]);
 
   const formatPokemonId = (id) => {
     if (id < 10) return `#00${id}`;
